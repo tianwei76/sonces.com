@@ -1,0 +1,1 @@
+{"dr_member":["id","email","phone","username","password","login_attr","salt","name","money","freeze","spend","score","experience","regip","regtime","randcode"],"dr_member_data":["id","is_admin","is_lock","is_verify","is_mobile","is_email","is_avatar","is_complete"]}

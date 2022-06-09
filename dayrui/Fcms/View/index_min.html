@@ -1,0 +1,105 @@
+{template "head.html"}
+<body scroll="no" style="overflow: hidden;" class="page-sidebar-closed-hide-logo page-admin-min page-container-bg-solid page-header-fixed page-sidebar-fixed ">
+<div class="page-header navbar navbar-fixed-top">
+    <div class="page-header-inner ">
+        <div class="page-logo">
+            <a href="{SITE_URL}" target="_blank">
+                <img src="{THEME_PATH}assets/logo.png" class="logo-default" />
+            </a>
+        </div>
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
+
+        {if !$is_mobile}
+        <div class="page-top">
+            <div class="top-menu my-top-left pull-left">
+                <ul class="fc-all-menu-top  fc-mb-left-menu" id="dr_go_url">
+                </ul>
+            </div>
+            <div class="top-menu">
+                <ul class="nav navbar-nav pull-right">
+
+
+                    {if count($ci->site_info) > 1}
+                    <li class="dropdown dropdown-extended dropdown-tasks">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            <i class="fa fa-share-alt"></i>
+                            <span class="badge badge-default"> {count($ci->site_info)} </span>
+                        </a>
+                        <ul class="dropdown-menu extended tasks">
+                            <li>
+                                <ul class="dropdown-menu-list scroller" style="height:300px;" data-handle-color="#637283">
+                                    {loop $ci->site_info $i $t}
+                                    {if \Phpcmf\Service::M('auth')->_check_site($i)}
+                                    <li>
+                                        <a href="javascript:;" onclick="dr_select_site('{$i}')" title="{$t.SITE_NAME}" {if SITE_ID == $i}style="color:red"{/if}>
+                                        <span class="task">
+                                           aaaa <span class="desc"> {dr_strcut($t.SITE_NAME, 30)} </span>
+                                        </span>
+                                        </a>
+                                    </li>
+                                    {/if}
+                                    {/loop}
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    {/if}
+                    <li class="dropdown dropdown-user">
+                        <a  href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            <span  class="username username-hide-on-mobile"> {dr_strcut($admin['username'], 8)} </span>
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-default">
+                            <li><a href="javascript:dr_go_url('{dr_url('api/my')}');"><i class="fa fa-edit"></i> {dr_lang('修改资料')} </a></li>
+                            {if !$is_mode}
+                            <li><a href="{dr_url('api/admin_all')}"><i class="fa fa-retweet"></i> {dr_lang('完整模式')}</a></li>
+                            {/if}
+                            <li><a href="javascript:;" onClick="dr_logout('{dr_url('login/out')}');"><i class="fa fa-user-times"></i> {dr_lang('退出系统')}</a></li>
+                            <li class="divider"> </li>
+                            {if $ci->_is_admin_auth('check/index')}
+                            <li><a href="javascript:dr_go_url('{dr_url('check/index')}');"><i class="fa fa-wrench"></i> {dr_lang('系统体检')}</a></li>
+                            {/if}
+                            <li><a href="javascript:dr_update_cache_all();"><i class="fa fa-refresh"></i> {dr_lang('更新缓存')}</a></li>
+                            <li><a href="javascript:dr_update_cache_data();"><i class="fa fa-trash"></i> {dr_lang('更新数据')}</a></li>
+                            {if $admin.adminid==1}
+                            <li class="divider"> </li>
+                            <li><a href="javascript:dr_go_url('{dr_url('error/index')}');"><i class="fa fa-shield"></i> {dr_lang('系统日志')}</a></li>
+                            {/if}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        {/if}
+    </div>
+</div>
+<div class="clearfix"> </div>
+<div class="page-container">
+    <div class="page-sidebar-wrapper">
+        <div class="page-sidebar navbar-collapse collapse">
+
+            <ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-compact">
+                {$string}
+                {if $is_mobile}
+                <li><a href="javascript:dr_update_cache_all();"><i class="fa fa-refresh"></i> {dr_lang('更新缓存')}</a></li>
+                <li><a href="javascript:dr_update_cache_data();"><i class="fa fa-trash"></i> {dr_lang('更新数据')}</a></li>
+                {if !$is_mode}
+                <li><a href="{dr_url('api/admin_all')}"><i class="fa fa-retweet"></i> {dr_lang('完整模式')}</a></li>
+                {/if}
+                <li><a href="javascript:;" onClick="dr_logout('{dr_url('login/out')}');"><i class="fa fa-user-times"></i> {dr_lang('退出系统')}</a></li>
+                {/if}
+            </ul>
+
+        </div>
+    </div>
+    <div class="page-content-wrapper">
+        <div class="page-content page-content-min">
+            <div id="myiframe" cid="right_page">
+                <iframe class="myiframe" name="right" id="right_page" src="{$main_url}" url="{$main_url}" style="border:none; margin-bottom:0px;" width="100%" height="auto" allowtransparency="true"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

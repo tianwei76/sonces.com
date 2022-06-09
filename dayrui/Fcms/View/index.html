@@ -1,0 +1,206 @@
+{template "head.html"}
+
+<body scroll="no" style="overflow: hidden;" class="page-sidebar-closed-hide-logo page-admin-all page-content-white page-header-fixed page-sidebar-fixed ">
+<style>.page-content {padding:0px !important;} </style>
+<div class="page-header navbar navbar-fixed-top">
+    <div class="page-header-inner ">
+        <div class="page-logo" style="font-size: 21px;
+line-height: 70px;
+font-weight: bold;
+color: #fff;
+text-transform: uppercase;">
+            CryptoDeer
+        </div>
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+            <span></span>
+        </a>
+        <div class="top-menu my-top-left pull-left">
+            <ul class="nav navbar-nav pull-left fc-all-menu-top ">
+                {loop $top $t}
+                <li id="dr_menu_top_{$t.id}" class="dropdown {if $t.id==$first}open{/if}">
+                    <a class="dropdown-toggle popovers" href="javascript:Mlink('{$t.id}', '{$t.left_id}', '{$t.link_id}', '{$t.url}');" style="padding-left: 50px;padding-right: 50px;">
+                        <div class="menu-top-icon"><i class="{$t.icon}"></i></div>
+                        <div class="menu-top-name"><i class="top-txt-menu">{dr_lang($t.name)}</i></div>
+                    </a>
+                </li>
+                {/loop}
+            </ul>
+        </div>
+        <div class="top-menu my-top-right">
+            <ul class="nav navbar-nav pull-right">
+                {if $is_mobile}
+                <li class="dropdown fc-mini-menu-top">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-default fc_mini_menu_top">
+                        {loop $top $t}
+                        <li>
+                            <a id="dr_mini_menu_top_{$t.id}" class="dr_mini_menu_top {if $t.id==$first}open{/if}" href="javascript:Mlink('{$t.id}', '{$t.left_id}', '{$t.link_id}', '{$t.url}');">
+                                <i class="{$t.icon}"></i> {dr_lang($t.name)}
+                            </a>
+                        </li>
+                        {/loop}
+                    </ul>
+                </li>
+                {$mstring}
+                {/if}
+
+                {if count($ci->site_info) > 1}
+                <li class="dropdown dropdown-extended dropdown-tasks">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <div class="menu-top-icon"><i class="fa fa-share-alt"></i>
+                        </div>
+                        <div class="top-txt-menu">{dr_lang('多站')}</div>
+                    </a>
+                    <ul class="dropdown-menu extended tasks">
+                        <li>
+                            <ul class="dropdown-menu-list scroller" style="height:400px;overflow: scroll;" data-handle-color="#637283">
+                                {loop $ci->site_info $i $t}
+                                {if \Phpcmf\Service::M('auth')->_check_site($i)}
+                                <li>
+                                    <a href="javascript:;" onclick="dr_select_site('{$i}')" title="{$t.SITE_NAME}" {if SITE_ID == $i}style="color:red"{/if}>
+                                        <p style="margin: 0">{dr_strcut($t.SITE_NAME, 30)}</p>
+                                        <p style="margin: 0;font-size: 10px;margin-top: -4px;">{trim(str_replace(['http://', 'https://'], '', $t.SITE_URL), '/')}</p>
+                                    </a>
+                                </li>
+                                {/if}
+                                {/loop}
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                {/if}
+
+                {if $is_mobile}
+                <li class="dropdown">
+                    <a href="javascript:;"  class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <div class="menu-top-icon"> <i class="fa fa-wrench"></i> </div>
+                        <div class="menu-top-icon"><i class="top-txt-menu">{dr_lang('账号')}</i></div>
+                    </a>
+                    {else}
+                <li class="dropdown dropdown-user">
+                    <a style="margin-right: -10px;" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <img alt="{$admin['username']}" class="img-circle" src="{dr_avatar($admin.uid)}" />
+                        <span class="username username-hide-on-mobile"> {dr_strcut($admin['username'], 8)} </span>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    {/if}
+                    <ul class="dropdown-menu dropdown-menu-default">
+                        {if IS_USE_MEMBER}<li><a href="{dr_url('api/alogin', ['id'=>$admin.uid])}" target="_blank"><i class="fa fa-user"></i> {dr_lang('用户中心')} </a></li>{/if}
+                        <li><a href="javascript:dr_go_url('{dr_url('api/my')}');"><i class="fa fa-edit"></i> {dr_lang('修改资料')} </a></li>
+                        <li><a href="{dr_url('api/admin_min')}"><i class="fa fa-retweet"></i> {dr_lang('简化模式')}</a></li>
+                        <li><a href="javascript:;" onClick="dr_logout('{dr_url('login/out')}');"><i class="fa fa-user-times"></i> {dr_lang('退出系统')}</a></li>
+                        <li class="divider"> </li>
+
+                        <li><a href="javascript:dr_update_cache_all();"><i class="fa fa-refresh"></i> {dr_lang('更新缓存')}</a></li>
+                        <li><a href="javascript:dr_update_cache_data();"><i class="fa fa-trash"></i> {dr_lang('更新数据')}</a></li>
+                        {if $admin.adminid==1}
+                        <li class="divider"> </li>
+                        <li><a href="javascript:dr_go_url('{dr_url('error/index')}');"><i class="fa fa-shield"></i> {dr_lang('系统日志')}</a></li>
+                        {/if}
+                    </ul>
+                </li>
+                {if !$is_mobile}
+                <li class="dropdown dropdown-quick-sidebar-toggler">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <i class="fa fa-bell-o"></i>
+                    </a>
+                </li>
+                {/if}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix"> </div>
+
+<div class="page-container">
+    <div class="page-sidebar-wrapper">
+
+        <div class="page-sidebar navbar-collapse collapse">
+            <ul class="page-sidebar-menu  page-header-fixed  page-sidebar-menu-light" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+                <li class="sidebar-toggler-wrapper hide">
+                    <div class="sidebar-toggler">
+                        <span></span>
+                    </div>
+                </li>
+
+               
+                {$string}
+            </ul>
+        </div>
+    </div>
+    <div class="page-content-wrapper">
+        <div class="page-content index-content">
+            {if !SYS_NOT_ADMIN_CACHE && !$is_mobile}
+            <ul class="page-toolbar fc-mb-left-menu" id="dr_go_url">
+            </ul>
+            {/if}
+            <div id="myiframe" cid="right_page">
+                <iframe class="myiframe active" name="right" id="right_page" src="{$main_url}" url="{$main_url}" style="border:none; margin-bottom:0px;" width="100%" height="auto" allowtransparency="true"></iframe>
+            </div>
+        </div>
+    </div>
+
+    {if !$is_mobile}
+    <a href="javascript:;" class="page-quick-sidebar-toggler">
+        <i class="fa fa-angle-double-left"></i>
+    </a>
+    <div class="page-quick-sidebar-wrapper" data-close-on-body-click="false">
+        <div class="page-quick-sidebar">
+            <?php $notice = \Phpcmf\Service::M('auth')->admin_notice(10, true);?>
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="javascript:;" data-target="#quick_sidebar_tab_2" data-toggle="tab"> {dr_lang('系统提醒')}</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+
+                <div class="tab-pane active page-quick-sidebar-alerts" id="quick_sidebar_tab_2">
+                    {if $notice}
+                    <ul class="feeds list-items">
+                        {loop $notice $t}
+                        <li>
+                            <div class="col1" style="padding-top: 2px;padding-left: 3px;">
+                                <div class="cont">
+                                    <div class="cont-col1 user-avatar">
+                                        <a  onclick="dr_hide_left_tab()" href="javascript:dr_go_url('{dr_url('api/notice', array('id' => $t.id))}');"><img style="height: 25px!important;" src="{dr_avatar($t.uid)}" /></a>
+                                    </div>
+                                    <div class="cont-col2">
+                                        <div class="desc"><a style="color: #c1cbd0"  onclick="dr_hide_left_tab()" href="javascript:dr_go_url('{dr_url('api/notice', array('id' => $t.id))}');">{$t.msg}</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col2">
+                                <div class="date"> {dr_fdate($t.inputtime)} </div>
+                            </div>
+                        </li>
+                        {/loop}
+                    </ul>
+                    {/if}
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {/if}
+</div>
+<script>
+    // 关闭栏
+    function dr_hide_left_tab() {
+        $(".page-quick-sidebar-toggler").click();
+    }
+    if (self != top) {
+        top.location.href = admin_file;
+    }
+    var url = '{dr_url_prefix('/')}';
+    var p = url.split('/');
+    var ptl = document.location.protocol;
+    if ((p[0] == 'http:' || p[0] == 'https:') && ptl != p[0]) {
+        alert('当前访问是'+ptl.replace(':', '')+'模式，本项目设置的是'+p[0].replace(':', '')+'模式，请使用'+p[0].replace(':', '')+'模式访问');
+    }
+</script>
+</body>
+</html>

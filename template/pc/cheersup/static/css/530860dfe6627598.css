@@ -1,0 +1,206 @@
+.style_roadmap-man__1Imib,.style_roadmap-shadow-title__mcQnu .style_icon__loGT6,.style_roadmap-shadow-title__mcQnu .style_open__mXmIr,.style_roadmap-shadow-title__mcQnu .style_text__EIkOQ,.style_roadmap-title__1YpeM:after,.style_roadmap-wow__rFv5y {
+	transition-duration:.25s!important;
+	transition-timing-function:ease-out!important
+}
+.style_roadmap-wrap__wSX36>:last-child {
+	transition-duration:.2s!important;
+	transition-timing-function:ease-in!important
+}
+.style_roadmap-item__JBIDt {
+	background:#18191c;
+	border-radius:16px;
+	position:relative
+}
+.style_roadmap-item__JBIDt:not(:last-child) {
+	margin-bottom:12px
+}
+.style_roadmap-item__JBIDt.style_is-active__raYQk {
+	background:currentColor
+}
+.style_roadmap-item__JBIDt.style_is-active__raYQk .style_roadmap-wow__rFv5y {
+	bottom:auto;
+	top:0
+}
+.style_roadmap-item__JBIDt.style_is-active__raYQk .style_roadmap-title__1YpeM:after {
+	background-color:#000
+}
+.style_roadmap-item__JBIDt.style_is-active__raYQk .style_roadmap-wow__rFv5y,.style_roadmap-item__JBIDt:hover .style_roadmap-wow__rFv5y {
+	background-color:currentColor;
+	height:69px;
+	top:0
+}
+.style_roadmap-item__JBIDt.style_is-active__raYQk .style_roadmap-man__1Imib,.style_roadmap-item__JBIDt:hover .style_roadmap-man__1Imib {
+	height:180px
+}
+.style_roadmap-item__JBIDt.style_is-active__raYQk .style_roadmap-man__1Imib img,.style_roadmap-item__JBIDt:hover .style_roadmap-man__1Imib img {
+	transform:rotate(0deg)
+}
+.style_roadmap-item__JBIDt.style_is-active__raYQk .style_roadmap-shadow-title__mcQnu .style_icon__loGT6,.style_roadmap-item__JBIDt:hover .style_roadmap-shadow-title__mcQnu .style_icon__loGT6 {
+	background-color:#000;
+	border-color:currentColor;
+	opacity:1
+}
+.style_roadmap-item__JBIDt.style_is-active__raYQk .style_roadmap-shadow-title__mcQnu .style_text__EIkOQ,.style_roadmap-item__JBIDt:hover .style_roadmap-shadow-title__mcQnu .style_text__EIkOQ {
+	color:#000
+}
+.style_roadmap-item__JBIDt.style_is-active__raYQk .style_roadmap-shadow-title__mcQnu .style_open__mXmIr,.style_roadmap-item__JBIDt:hover .style_roadmap-shadow-title__mcQnu .style_open__mXmIr {
+	margin-top:90px;
+	opacity:1;
+	transform:rotate(-45deg)
+}
+.style_roadmap-wrap__wSX36 {
+	background-color:transparent!important;
+	box-shadow:none;
+	margin-bottom:0!important;
+	min-height:69px
+}
+.style_roadmap-wrap__wSX36>:last-child {
+	border-radius:0 0 16px 16px;
+	margin-top:-16px
+}
+.style_roadmap-title__1YpeM {
+	background:inherit;
+	border-width:0;
+	color:#fff;
+	min-height:auto!important;
+	padding-left:20px;
+	padding-right:18px
+}
+.style_roadmap-title__1YpeM:after {
+	background-color:transparent;
+	content:"";
+	height:1px;
+	position:absolute;
+	right:16px;
+	top:36px;
+	width:16px;
+	z-index:1
+}
+.style_roadmap-head__2RhFd {
+	align-items:center;
+	display:flex;
+	flex-direction:row;
+	height:69px;
+	justify-content:space-between;
+	margin:0!important
+}
+.style_roadmap-body__KhT2q {
+	border-radius:0 0 16px 16px;
+	border-width:0;
+	color:#000;
+	padding:16px 233px 70px 78px!important;
+	position:relative
+}
+.style_roadmap-body__KhT2q h3,.style_roadmap-body__KhT2q p {
+	margin:0
+}
+.style_roadmap-body__KhT2q h3 {
+	align-items:center;
+	display:flex;
+	font-size:20px;
+	font-weight:800;
+	line-height:28px
+}
+.style_roadmap-body__KhT2q h4 {
+	align-items:center;
+	display:flex;
+	font-size:14px;
+	font-weight:600;
+	line-height:26px;
+	margin:0
+}
+.style_roadmap-body__KhT2q h4+p {
+	padding-left:32px
+}
+.style_roadmap-body__KhT2q p {
+	font-size:14px;
+	font-weight:400;
+	line-height:22px;
+	margin-bottom:32px
+}
+.style_roadmap-wow__rFv5y {
+	background-color:transparent;
+	border-radius:16px;
+	left:0;
+	right:0;
+	top:69px;
+	will-change:height
+}
+.style_roadmap-man__1Imib,.style_roadmap-wow__rFv5y {
+	height:0;
+	pointer-events:none;
+	position:absolute;
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	user-select:none
+}
+.style_roadmap-man__1Imib {
+	bottom:-13px;
+	overflow:hidden;
+	right:13px;
+	transform:translateZ(0);
+	width:180px
+}
+.style_roadmap-man__1Imib img {
+	transform:rotate(90deg);
+	transform-origin:left bottom;
+	transition-duration:.35s
+}
+.style_roadmap-shim__d4_M7 {
+	background-color:#000;
+	bottom:-15px;
+	height:15px;
+	position:absolute;
+	right:0;
+	width:300px;
+	z-index:0
+}
+.style_roadmap-shadow-title__mcQnu {
+	align-items:center;
+	display:flex;
+	flex-direction:row;
+	height:69px;
+	justify-content:space-between;
+	left:0;
+	overflow:hidden;
+	padding-left:20px;
+	padding-right:18px;
+	pointer-events:none;
+	position:absolute;
+	top:0;
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	user-select:none;
+	width:100%
+}
+.style_roadmap-shadow-title__mcQnu .style_icon__loGT6 {
+	align-items:center;
+	background-color:#18191c;
+	border:1px solid #fff;
+	border-radius:50%;
+	display:flex;
+	height:34px;
+	justify-content:center;
+	left:20px;
+	opacity:.7;
+	position:absolute;
+	top:18px;
+	transform:translateZ(0);
+	width:34px
+}
+.style_roadmap-shadow-title__mcQnu .style_text__EIkOQ {
+	color:hsla(0,0%,100%,.7);
+	display:block;
+	font-size:22px;
+	font-weight:700;
+	margin-top:4px;
+	padding-left:57px
+}
+.style_roadmap-shadow-title__mcQnu .style_open__mXmIr {
+	margin-top:6px;
+	opacity:.7;
+	transform:rotate(0);
+	transform-origin:center
+}

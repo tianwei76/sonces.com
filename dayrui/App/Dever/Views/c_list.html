@@ -1,0 +1,52 @@
+{template "header.html"}
+<div class="note note-danger">
+    <p>当前应用程序的控制器目录是：{APPSPATH}{$dir}/Controllers/</p>
+</div>
+<form class="form-horizontal" role="form" id="myform">
+    {dr_form_hidden()}
+    <div class="table-scrollable">
+        <table class="table table-striped table-bordered  table-checkable dataTable">
+            <thead>
+            <tr class="heading">
+                <th width="120" style="text-align:center"> {dr_lang('权限')} </th>
+                <th width="330"> {dr_lang('应用目录')}</th>
+                <th> {dr_lang('操作')} </th>
+            </tr>
+            </thead>
+            <tbody>
+            {loop $list $tid $t}
+            <tr class="odd gradeX">
+                <td style="text-align:center">{$t.type}</td>
+                <td>{$t.path}</td>
+                <td>
+                    <label><a href="javascript:dr_iframe('创建空白控制器', '{dr_url('dever/home/c_add', ['dir'=>$dir, 'tid' => $tid])}', '500px','410px');" class="btn btn-xs blue"> <i class="fa fa-plus"></i> {dr_lang('创建空白控制器')} </a></label>
+                    {if in_array($tid, ['admin', 'member'])}
+                    <label><a href="javascript:dr_iframe('创建数据控制器', '{dr_url('dever/home/db_add', ['dir'=>$dir, 'tid' => $tid])}', '500px','510px');" class="btn btn-xs red"> <i class="fa fa-plus"></i> {dr_lang('创建数据控制器')} </a></label>
+                    {/if}
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:center"></td>
+                <td>
+                {loop $t.file $file}
+                <div style="margin: 10px 0 ;">
+                    <a href="javascript:dr_iframe_show('控制器', '{dr_url('dever/home/show', ['dir'=>$dir, 'file'=>$file, 'tid' => $tid])}', '80%');">{$file}</a>
+                </div>
+                {/loop}
+                </td>
+                <td>
+
+                </td>
+            </tr>
+
+            {php $i++;}
+            {/loop}
+            </tbody>
+        </table>
+    </div>
+
+
+</form>
+
+
+{template "footer.html"}

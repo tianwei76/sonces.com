@@ -1,0 +1,72 @@
+{template "header.html"}
+<div class="note note-danger">
+    <p>空白的模块类应用插件，可以在应用-应用管理中安装测试，安装后会自动创建模块等相关表</p>
+</div>
+<form action="" class="form-horizontal" method="post" name="myform" id="myform">
+    {$form}
+    <div class="form-body">
+        <div class="form-group" id="dr_row_name">
+            <label class="col-xs-3 control-label ajax_name">{dr_lang('模块名称')}</label>
+            <div class="col-xs-8">
+                <label><input type="text" class="form-control" id="dr_name" name="data[name]"></label>
+                <span class="help-block"> {dr_lang('模块的描述名称')} </span>
+            </div>
+        </div>
+
+        <div class="form-group" id="dr_row_dirname">
+            <label class="col-xs-3 control-label ajax_name ">{dr_lang('目录名称')}</label>
+            <div class="col-xs-8">
+                <label><input type="text" class="form-control" id="dr_dirname" name="data[dirname]" value=""></label>
+                <span class="help-block"> {dr_lang('只能由字母构成')} </span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label ajax_name ">{dr_lang('插件作者')}</label>
+            <div class="col-xs-8">
+                <label><input type="text" class="form-control" name="data[author]" value=""></label>
+                <span class="help-block"> {dr_lang('表示插件的开发者，例如：某某工作室')} </span>
+            </div>
+        </div>
+
+        <div class="form-group" id="dr_row_icon">
+            <label class="col-xs-3 control-label ajax_name ">{dr_lang('模块图标')}</label>
+            <div class="col-xs-8">
+                <div class="input-group" style="width:250px">
+                    <input class="form-control" id="dr_icon" placeholder="fa fa-code" type="text" name="data[icon]" />
+                    <span class="input-group-btn">
+                                <a class="btn btn-success" href="{dr_url('api/icon')}" target="_blank"><i class="fa fa-arrow-right fa-fw" /></i> {dr_lang('查看')}</a>
+                            </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label ajax_name ">{dr_lang('安装模式')}</label>
+            <div class="col-xs-8">
+                <div class="mt-radio-inline">
+                    <label class="mt-radio mt-radio-outline">
+                        <input type="radio" name="data[mtype]" value="0" checked=""> 由用户选择 <span></span>
+                    </label>
+                    <label class="mt-radio mt-radio-outline">
+                        <input type="radio" name="data[mtype]" value="2"> 强制独立模块 <span></span>
+                    </label>
+                    <label class="mt-radio mt-radio-outline">
+                        <input type="radio" name="data[mtype]" value="1"> 强制共享模块 <span></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label ajax_name">{dr_lang('存储路径')}</label>
+            <div class="col-xs-8">
+                <div class="form-control-static">{APPSPATH}</div>
+            </div>
+        </div>
+
+    </div>
+
+</form>
+
+{template "footer.html"}

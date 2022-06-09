@@ -1,0 +1,35 @@
+{template "header.html"}
+
+
+    <div class="form-body">
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label ajax_name">控制器文件</label>
+            <div class="col-xs-8">
+                <div class="form-control-static">{$cfile}</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label ajax_name">访问地址</label>
+            <div class="col-xs-8">
+                <div class="form-control-static">{$curl}</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label ajax_name">&nbsp;数据列表模板</label>
+            <div class="col-xs-8">
+                <div class="form-control-static">{$list_tpl}</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-3 control-label ajax_name">数据添加/修改模板</label>
+            <div class="col-xs-8">
+                <div class="form-control-static">{$post_tpl}</div>
+            </div>
+        </div>
+
+    </div>
+{template "footer.html"}

@@ -1,0 +1,21 @@
+{template "header.html"}
+
+<form class="form-horizontal" role="form" id="myform">
+    {$form}
+    <div class="form-body">
+        <div class="form-group" id="dr_row_name">
+            <label class="col-xs-3 control-label ajax_name">{dr_lang('文件名')}</label>
+            <div class="col-xs-8">
+                <input type="text" class="form-control" id="dr_name" name="name">
+                <span class="help-block"> {dr_lang('由a-z的字母开头，可以包含数字或_符号')} </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-3 control-label ajax_name">{dr_lang('存储路径')}</label>
+            <div class="col-xs-8">
+                <div class="form-control-static">{$path}</div>
+            </div>
+        </div>
+    </div>
+</form>
+{template "footer.html"}

@@ -1,0 +1,78 @@
+{template "header.html"}
+<div class="note note-danger">
+    <p>{dr_lang('自定义系统变量可在全站点调用，比如设置功能开关、小段文字、联系电话、QQ等')}</p>
+</div>
+<form class="form-horizontal" role="form" id="myform">
+    {dr_form_hidden()}
+    <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover table-checkable">
+        <thead>
+        <tr class="heading">
+            {if $ci->_is_admin_auth('del')}
+            <th class="myselect">
+                <label class="mt-table mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                    <input type="checkbox" class="group-checkable" data-set=".checkboxes" />
+                    <span></span>
+                </label>
+            </th>
+            {/if}
+            <th style="text-align:center" width="90" class="{dr_sorting('id')}" name="id">{dr_lang('Id')}</th>
+            <th width="60" style="text-align:center"> {dr_lang('状态')} </th>
+            <th width="100" style="text-align:center"> {dr_lang('类型')} </th>
+            <th width="200"> {dr_lang('名称')} </th>
+            <th> {dr_lang('变量值')} </th>
+        </tr>
+        </thead>
+        <tbody>
+        {loop $list $t}
+        <tr class="odd gradeX" id="dr_row_{$t.id}">
+            {if $ci->_is_admin_auth('del')}
+            <td class="myselect">
+                <label class="mt-table mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                    <input type="checkbox" class="checkboxes" name="ids[]" value="{$t.id}" />
+                    <span></span>
+                </label>
+            </td>
+            {/if}
+            <td style="text-align:center">{$t.id}</td>
+            <td style="text-align:center">
+                <a href="javascript:;" onclick="dr_ajax_open_close(this, '{dr_url(APP_DIR.'/home/hidden_edit', ['id'=>$t.id])}', 1);" class="badge badge-{if $t.hide}no{else}yes{/if}"><i class="fa fa-{if $t.no}times{else}check{/if}"></i></a>
+            </td>
+            <td style="text-align:center">{$type[$t.type]}</td>
+            <td>{$t.name}</td>
+            <td>
+                <a href="javascript:dr_iframe('edit', '{dr_url('variable/home/edit', ['id'=>$t.id])}', '', '80%');" class="btn btn-xs green">
+                {if $t.type == 0}
+                    {if $t.value}
+                    {dr_lang('是')}
+                    {else}
+                    {dr_lang('否')}
+                    {/if}
+                {else if $t.type == 1}
+                    {dr_strcut(dr_clearhtml($t.value), 30)}
+                {/if}
+                </a>
+            </td>
+        </tr>
+        {/loop}
+        </tbody>
+    </table>
+    </div>
+         <div class="row fc-list-footer table-checkable ">
+             <div class="col-md-5 fc-list-select">
+                {if $ci->_is_admin_auth('del')}
+                <label class="mt-table mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                    <input type="checkbox" class="group-checkable" data-set=".checkboxes" />
+                    <span></span>
+                </label>
+                <button type="button" onclick="dr_ajax_option('{dr_url('variable/home/del')}', '{dr_lang('你确定要删除它们吗？')}', 1)" class="btn red btn-sm"> <i class="fa fa-trash"></i> 删除</button>
+                {/if}
+            </div>
+             <div class="col-md-7 fc-list-page">
+                 {$mypages}
+             </div>
+         </div>
+</form>
+
+
+{template "footer.html"}

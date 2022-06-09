@@ -1,0 +1,263 @@
+{template "header.html"}
+<div class="note note-danger">
+    <p>生成字段控件代码（如果前台涉及到文件上传的字段需要先创建字段再生成）</p>
+</div>
+<form action="" class="form-horizontal" method="post" name="myform" id="myform">
+    {$form}
+    <div class="portlet bordered light myfbody">
+        <div class="portlet-title ">
+            <div class="caption">
+                <span class="caption-subject font-green sbold ">{dr_lang('生成字段控件')}</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="tab_0">
+                    <div class="form-body">
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">{dr_lang('显示名称')}</label>
+                            <div class="col-md-9">
+                                <label><input class="form-control" type="text" name="data[name]" value="{htmlspecialchars((string)$data.name)}" id="dr_name" onblur="d_topinyin('fieldname','name');" /></label>
+                                <span class="help-block" id="dr_name_tips">{dr_lang('为字段取个名字')}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">{dr_lang('字段名称')}</label>
+                            <div class="col-md-9">
+                                <label><input class="form-control" type="text"  name="data[fieldname]" value="{$data.fieldname}" {if $data.id}disabled{/if} id="dr_fieldname" /></label>
+                                <span class="help-block" id="dr_fieldname_tips">{dr_lang('只能由字母+数字组成')}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">{dr_lang('是否主表')}</label>
+                            <div class="col-md-9">
+                                <div class="mt-radio-inline">
+                                    <label class="mt-radio mt-radio-outline"><input type="radio" id="iszb1" name="data[ismain]" value="0"  /> {dr_lang('附表')} <span></span></label>
+                                    <label class="mt-radio mt-radio-outline"><input type="radio" id="iszb2" name="data[ismain]" value="1" checked /> {dr_lang('主表')} <span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">{dr_lang('字段类别')}</label>
+                            <div class="col-md-9">
+                                <label><select class="form-control" id="dr_fieldtype" name="data[fieldtype]" onChange="show_field_option(this.value)" {if $id}disabled{/if}>
+                                    <option value=""> -- </option>
+                                    {loop $ftype $t}
+                                    <option value="{$t.id}" {if $t.id==$data.fieldtype} selected="selected"{/if}> {$t.name}（{$t.id}） </option>
+                                    {/loop}
+                                    </select>
+                                </label>
+                                <label id="dr_loading" style="display:none">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <img width="16" src="{THEME_PATH}assets/images/loading-2.gif">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-body" id="dr_option">
+
+                    </div>
+
+
+                    <div class="form-body" id="dr_css">
+
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">{dr_lang('是否必填')}</label>
+                        <div class="col-md-9">
+                            <div class="mt-radio-inline">
+                                <label class="mt-radio mt-radio-outline"><input type="radio" name="data[setting][validate][required]" value="0" checked onclick="set_required(0)" /> {dr_lang('否')} <span></span></label>
+                                <label class="mt-radio mt-radio-outline"><input type="radio" name="data[setting][validate][required]" value="1" onclick="set_required(1)" /> {dr_lang('是')} <span></span></label>
+                            </div>
+                            <span class="help-block">{dr_lang('此选项部分字段不可用')}</span>
+                        </div>
+                    </div>
+                    <div id="required" style="display:none">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">{dr_lang('正则验证')}</label>
+                            <div class="col-md-9">
+                                <label><input class="form-control" type="text" name="data[setting][validate][pattern]" value="{$data['setting']['validate']['pattern']}" id="dr_pattern" size="30" /></label>
+                                <label><select class="form-control" onchange="javascript:$('#dr_pattern').val(this.value)" name="pattern_select">
+                                    <option value="">{dr_lang('正则验证')}</option>
+                                    <option value="/^[0-9.-]+$/">{dr_lang('数字')}</option>
+                                    <option value="/^[0-9-]+$/">{dr_lang('整数')}</option>
+                                    <option value="/^[a-z]+$/i">{dr_lang('字母')}</option>
+                                    <option value="/^[0-9a-z]+$/i">{dr_lang('数字+字母')}</option>
+                                    <option value="/^[\w\-\.]+@[\w\-\.]+(\.\w+)+$/">Email</option>
+                                </select></label>
+                                <span class="help-block">{dr_lang('此选项部分字段不可用')}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">{dr_lang('验证提示')}</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" name="data[setting][validate][errortips]" value="{$data['setting']['validate']['errortips']}" id="dr_errortips" />
+                                <span class="help-block">{dr_lang('当字段校验未通过时的提示信息，如“标题必须在80字以内”等等')}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">{dr_lang('禁止修改')}</label>
+                        <div class="col-md-9">
+                            <input type="checkbox" name="data[setting][validate][isedit]" value="1" {if $data['setting']['validate']['isedit']}checked{/if} data-on-text="{dr_lang('是')}" data-off-text="{dr_lang('否')}" data-on-color="success" data-off-color="danger" class="make-switch" data-size="small">
+                            <span class="help-block">{dr_lang('前端用户提交之后将不能修改字段值，后台任然可以修改值')}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">{dr_lang('XSS过滤')}</label>
+                        <div class="col-md-9">
+                            <input type="checkbox" name="data[setting][validate][xss]" value="1" {if $data['setting']['validate']['xss']}checked{/if} data-on-text="{dr_lang('关闭')}" data-off-text="{dr_lang('开启')}" data-off-color="success" data-on-color="danger" class="make-switch" data-size="small">
+                            <span class="help-block">{dr_lang('开启之后相关字符会被替换掉')}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">{dr_lang('校验函数/方法')}</label>
+                        <div class="col-md-9">
+                            <label><input class="form-control input-large"type="text" name="data[setting][validate][check]" value="{$data['setting']['validate']['check']}" id="dr_check"> </label>
+                            <label><a class="btn btn-sm blue" href="javascript:dr_test_call('dr_check');"> 检测 </a></label>
+                            <span class="help-block"> <a href="javascript:dr_help('601');"> {dr_lang('此功能需要有PHP编程经验，了解函数的定义')}</a> </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">{dr_lang('过滤函数/方法')}</label>
+                        <div class="col-md-9">
+
+                            <label><input class="form-control input-large"type="text" name="data[setting][validate][filter]" value="{$data['setting']['validate']['filter']}" id="dr_filter"> </label>
+                            <label><a class="btn btn-sm blue" href="javascript:dr_test_call('dr_filter');"> 检测 </a></label>
+                            <span class="help-block"> <a href="javascript:dr_help('602');"> {dr_lang('此功能需要有PHP编程经验，了解函数的定义')}</a> </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">{dr_lang('Css样式表')}</label>
+                        <div class="col-md-9">
+                            <input class="form-control" type="text" name="data[setting][option][css]" value="{$data['setting']['option']['css']}" />
+                            <span class="help-block">{dr_lang('对字段进行样式控制，使用开发者自定义的css样式')}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">{dr_lang('表单附加属性')}</label>
+                        <div class="col-md-9">
+                            <textarea class="form-control" style="height:120px" name="data[setting][validate][formattr]">{$data['setting']['validate']['formattr']}</textarea>
+                            <span class="help-block">{dr_lang('可以通过此处加入js事件、ajax验证、css等')}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">{dr_lang('字段提示信息')}</label>
+                        <div class="col-md-9">
+                            <input class="form-control" type="text" name="data[setting][validate][tips]" value="{$data['setting']['validate']['tips']}" />
+                            <span class="help-block">{dr_lang('对字段简短的提示，来说明这个字段是用来干什么的')}</span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">{dr_lang('前端显示')}</label>
+                        <div class="col-md-9">
+                            <input type="checkbox" name="data[ismember]" value="1" checked data-on-text="{dr_lang('是')}" data-off-text="{dr_lang('否')}" data-on-color="success" data-off-color="danger" class="make-switch" data-size="small">
+                            <span class="help-block">{dr_lang('发布内容时，如果想前端表单或者会员中心不显示那么请选择“否”，否则选“是”')}</span>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="portlet-body form myfooter">
+        <div class="form-actions text-center">
+            <button type="button" onclick="dr_ajax_submit2('{dr_now_url()}', 'myform', '2000', '')" class="btn green"> <i class="fa fa-code"></i> {dr_lang('生成代码')}</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    function dr_ajax_submit2(url, form, time, go) {
+
+        var loading = layer.load(2, {
+            shade: [0.3,'#fff'], //0.1透明度的白色背景
+            time: 100000000
+        });
+
+        $("#"+form+' .form-group').removeClass('has-error');
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: url,
+            data: $("#"+form).serialize(),
+            success: function(json) {
+                layer.close(loading);
+                if (json.code == 1) {
+
+                    layer.open({
+                        type: 1,
+                        title: "模板调用代码",
+                        fix:true,
+                        scrollbar: false,
+                        shadeClose: true,
+                        shade: 0,
+                        area: ['90%', '70%'],
+                        content: json.msg
+                    });
+
+                } else {
+                    dr_cmf_tips(0, json.msg);
+                    $('.fc-code img').click();
+                    if (json.data.field) {
+                        $('#dr_row_'+json.data.field).addClass('has-error');
+                        $('#dr_'+json.data.field).focus();
+                    }
+                }
+            },
+            error: function(HttpRequest, ajaxOptions, thrownError) {
+                dr_ajax_alert_error(HttpRequest, this, thrownError);
+            }
+        });
+    }
+    $(function() {
+        set_required(0);
+        show_field_option("{$data['fieldtype']}");
+    });
+    function show_field_option(type) {
+        $("#dr_loading").show();
+        $.ajax({type: "GET",dataType:"json", url: '/index.php?s=api&c=api&m=field&rand='+Math.random(),
+            data: {type:type, relatedid:'{$rid}', relatedname:'{$rname}', app:'{$namespace}', id:{intval($data.id)}},
+            success: function(data) {
+                $('#dr_css').html(data.style);
+                $('#dr_option').html(data.option);
+                $("#dr_loading").hide();
+                App.init();
+            },
+            error: function(HttpRequest, ajaxOptions, thrownError) {
+                dr_ajax_alert_error(HttpRequest, this, thrownError);
+            }
+        });
+
+    }
+    function set_required(id) {
+        if (id == 0) {
+            $('#required').hide();
+        } else {
+            $('#required').show();
+        }
+    }
+
+    function dr_test_call(value) {
+        $.ajax({type: "GET",dataType:"json", url: "{dr_url('api/field_call')}&name="+$('#'+value).val(),
+            success: function(json) {
+                dr_tips(json.code, json.msg);
+            },
+            error: function(HttpRequest, ajaxOptions, thrownError) {
+                dr_ajax_alert_error(HttpRequest, this, thrownError);
+            }
+        });
+    }
+
+</script>
+{template "footer.html"}

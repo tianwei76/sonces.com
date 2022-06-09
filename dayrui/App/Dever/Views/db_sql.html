@@ -1,0 +1,65 @@
+{template "header.html"}
+
+
+
+<form action="" class="form-horizontal" method="post" id="sqlform">
+    {dr_form_hidden()}
+    <div class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="caption">
+                <span class="caption-subject font-green sbold ">{dr_lang('执行SQL')}</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+
+
+            <div class="form-body">
+
+
+                <div class="form-group row">
+                    <label class="col-md-2 control-label">{dr_lang('SQL语句')}</label>
+                    <div class="col-md-9">
+                        <textarea id="sql" class="form-control" style="height:200px" name="sql"></textarea>
+                        <p style="padding-top:9px;" class="help-block"> {dr_lang('只支持常用的SQL语句，复杂的SQL语句请使用phpmyadmin工具执行')} </p>
+                    </div>
+                </div>
+
+                {if $sql_cache}
+                <div class="form-group row">
+                    <label class="col-md-2 control-label " style="padding-top: 8px">{dr_lang('最近执行')}</label>
+                    <div class="col-md-9">
+                        <select class="form-control" onchange="$('#sql').val(this.value)">
+                            <option value="">--</option>
+                            {loop $sql_cache $t}
+                            <option value="{$t}">{dr_strcut($t, 50)}</option>
+                            {/loop}
+                        </select>
+                    </div>
+                </div>
+                {/if}
+
+                <div id="sql_result_id" class="form-group row">
+                    <label class="col-md-2 control-label">{dr_lang('执行结果')}</label>
+                    <div class="col-md-9" id="sql_result">
+
+                    </div>
+                </div>
+
+
+                <div class="form-actions margin-bottom-30">
+                    <label class="col-md-2 control-label">&nbsp;</label>
+                    <div class="col-md-9" style="padding-left: 5px;">
+                        <button type="button" onclick="dr_submit_sql_todo('sqlform', '{dr_url('dever/db/sql_add')}')" class="btn blue"> <i class="fa fa-database"></i> {dr_lang('立即执行')}</button>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+</form>
+
+
+{template "footer.html"}
